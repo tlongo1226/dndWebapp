@@ -10,7 +10,6 @@ class AllyAdmin(admin.ModelAdmin):
 @admin.register(Enemy)
 class EnemyAdmin(admin.ModelAdmin):
     list_display=('name', 'Classes', 'Races')
-    
 
 @admin.register(Creature)
 class CreatureAdmin(admin.ModelAdmin):
@@ -23,7 +22,6 @@ class RaceAdmin(admin.ModelAdmin):
 @admin.register(CharacterClass)
 class CharacterClassAdmin(admin.ModelAdmin):
     list_display=('name', 'Instance_Count',)
-
 
 @admin.register(DamageType)
 class DamageTypeAdmin(admin.ModelAdmin):

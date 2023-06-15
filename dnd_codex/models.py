@@ -4,7 +4,6 @@ from datetime import datetime
 class DamageType(models.Model):
     name = models.CharField(max_length=75, help_text="Enter a Damage Type")
 
-
     def Instance_Count(self):
         character_count = sum(
             character.damageType.filter(id=self.id).count()
@@ -26,14 +25,7 @@ class DamageType(models.Model):
 
     def __str__(self):
         return self.name
-    ##TODO need to figure out how to display the number for a inherited classes damage type counts
-    # def get_count(self):
-    #     character_count = sum(
-    #         character.damageType.filter(id=self.id).count()
-    #         for character in Character.
-    #     )
-    #     return character_count
-
+    
 class Race(models.Model):
     name = models.CharField(max_length=50, help_text="Enter a race/species")
 
@@ -92,7 +84,6 @@ class Character(models.Model):
     description = models.TextField()
     damageType = models.ManyToManyField(DamageType, help_text="Select a damage type from previous types or create a new one using the + button\n", )
 
-
     def Classes(self):        
         displayClasses = [characterClass.name for characterClass in self.characterClass.all()[:3]]
         if(len(displayClasses)>3):
@@ -125,6 +116,7 @@ class Character(models.Model):
 
     class Meta:
         abstract =True
+
 """
    Enemies will be characters met during the players travels who are likely to be encountered again
    or might be characters that have importance to the story 
@@ -135,16 +127,18 @@ class Enemy(Character):
     date_modified = models.DateTimeField(datetime.now())
     def __str__(self):
         return self.name
-
+    class Meta:
+        verbose_name_plural='Enemies'
 
 class Ally(Character):
-    
-    
     date_modified = models.DateTimeField(datetime.now())
     # TODO add affiliate organiation
-    # TODO
+
     def __str__(self):
         return self.name
+    
+    class Meta:
+        verbose_name_plural='Allies'
 
 class Creature(Character):
     health = models.IntegerField(default =0)
@@ -152,4 +146,6 @@ class Creature(Character):
     def __str__(self):
         return self.name
     
+    class Meta:
+        verbose_name_plural='Creatures'
 
