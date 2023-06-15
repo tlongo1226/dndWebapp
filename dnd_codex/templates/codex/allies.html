@@ -1,0 +1,7 @@
+<h1> Allies: {{ allies|length }}</h1>
+
+<ul>
+    {% for ally in allies %}
+        <li><a href = "/codex/ally_detail/{{ ally.id }}/">{{ ally.name }}</a></li>
+    {% endfor %}
+</ul>

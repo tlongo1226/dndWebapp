@@ -1,0 +1,13 @@
+<h1> Enemies: {{ enemies|length }}</h1>
+
+<ul>
+    {% for enemy in enemies %}
+        <li><a href = "{% url 'enemy_detail' enemy.id %}">{{ enemy.name }}</a></li>
+    {% endfor %}
+</ul>
+
+<form  method="post">
+{% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Create">
+</form>

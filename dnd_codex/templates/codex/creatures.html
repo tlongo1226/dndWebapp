@@ -1,0 +1,7 @@
+<h1> Creatures: {{ creatures|length }}</h1>
+
+<ul>
+    {% for creature in creatures %}
+        <li><a href = "/codex/creature_detail/{{ creature.id }}/">{{ creature.name }}</a></li>
+    {% endfor %}
+</ul>

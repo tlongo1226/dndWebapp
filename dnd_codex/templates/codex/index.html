@@ -1,0 +1,19 @@
+ <h1>Most Recent Entries:</h1>
+{% if allyResponse and enemyResponse %}
+   <p> {{allyResponse}}  </p>
+   <p> {{enemyResponse}}  </p>  
+{% elif allyResponse %}
+    { allyResponse }
+{% elif enemyResponse %}
+    { enemyResponse } 
+{% else %}
+    <h3>No Recent Acquaintances</h3>
+
+{% endif %}
+
+<a href="{% url 'Enemies' %}">Enemies</a>
+<p></p>
+<a href = "{% url 'Allies' %}">Allies</a>
+<p></p>
+<a href ="{% url 'Creatures' %}">Creatures</a>
+
