@@ -1,6 +1,13 @@
 from django.db import models
 from datetime import datetime
 
+class EventType(models.Model):
+    name = models.CharField(max_length=50)
+    color = models.CharField(max_length=20, help_text="Enter a color code for this event type")
+
+    def __str__(self):
+        return self.name
+
 class DamageType(models.Model):
     name = models.CharField(max_length=75, help_text="Enter a Damage Type")
 
@@ -51,7 +58,7 @@ class Race(models.Model):
         return self.name
 
 #TODO change CharClass to something better for display
-class CharacterClass(models.Model):
+class PlayableClass(models.Model):
     name = models.CharField(max_length=50, help_text="Enter a class ")
 
     def Instance_Count(self):
@@ -73,19 +80,30 @@ class CharacterClass(models.Model):
         self.Instance_Count()
         super().save(*args, **kwargs)
 
+    def __str__(self):   
+        return self.name
+
+class Subclass(models.Model):
+    name = models.CharField(max_length=50, help_text="Enter a subclass ")
+    parentClass = models.ForeignKey( 
+        'PlayableClass',
+        on_delete=models.CASCADE,
+        related_name='subclasses'
+    )
+
     def __str__(self):
         return self.name
 
 class Character(models.Model):
     race = models.ManyToManyField(Race, help_text="Select a race from previous races or create a new one using the + button\n")
     name = models.CharField(max_length=50)
-    characterClass = models.ManyToManyField(CharacterClass, help_text="Enter a class for this character or leave blank if it is not known", blank="True", )
+    playableClass = models.ManyToManyField(PlayableClass, help_text="Enter a class for this character or leave blank if it is not known", blank="True", )
     organization = models.CharField(max_length=100, blank=True)
     description = models.TextField()
     damageType = models.ManyToManyField(DamageType, help_text="Select a damage type from previous types or create a new one using the + button\n", )
 
     def Classes(self):        
-        displayClasses = [characterClass.name for characterClass in self.characterClass.all()[:3]]
+        displayClasses = [playableClass.name for playableClass in self.playableClass.all()[:3]]
         if(len(displayClasses)>3):
 
             ', '.join(displayClasses)
@@ -149,3 +167,19 @@ class Creature(Character):
     class Meta:
         verbose_name_plural='Creatures'
 
+class Event(models.Model):
+    event_type = models.ForeignKey(EventType, on_delete=models.CASCADE)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.description
+
+
+class JournalEntry(models.Model):
+    date = models.DateField()
+    events = models.ManyToManyField(Event)
+    enemies = models.ManyToManyField(Enemy, blank=True)
+    allies = models.ManyToManyField(Ally, blank=True)
+
+    def __str__(self):
+        return f"Journal Entry for {self.date}"

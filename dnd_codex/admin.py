@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib import messages
-from .models import Enemy, Ally, Creature,Race, CharacterClass, DamageType
+from .models import Enemy, Ally, Creature,Race, PlayableClass, DamageType, Subclass, JournalEntry, Event, EventType
 # Register your models here.
 
 @admin.register(Ally)
@@ -19,10 +19,36 @@ class CreatureAdmin(admin.ModelAdmin):
 class RaceAdmin(admin.ModelAdmin):
     list_display=('name', 'Instance_Count',)
 
-@admin.register(CharacterClass)
-class CharacterClassAdmin(admin.ModelAdmin):
+@admin.register(PlayableClass)
+class PlayableClassAdmin(admin.ModelAdmin):
     list_display=('name', 'Instance_Count',)
+
+class SubclassInline(admin.TabularInline):
+    models = Subclass
+    extra = 0
+
+@admin.register(Subclass)
+class SubclassAdmin(admin.ModelAdmin):
+    list_display = ('name', 'parentClass',)
 
 @admin.register(DamageType)
 class DamageTypeAdmin(admin.ModelAdmin):
     list_display=('name', 'Instance_Count',)
+
+class EventInline(admin.TabularInline):
+    model = JournalEntry.events.through
+    extra = 1
+
+@admin.register(JournalEntry)
+class JournalEntryAdmin(admin.ModelAdmin):
+    list_display = ('date',)
+    inlines = [EventInline]
+
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('event_type', 'description')
+
+@admin.register(EventType)
+class EventTypeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'color')
+
