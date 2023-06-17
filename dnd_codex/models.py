@@ -32,6 +32,8 @@ class DamageType(models.Model):
 
     def __str__(self):
         return self.name
+    class Meta:
+        ordering = ["name"]
     
 class Race(models.Model):
     name = models.CharField(max_length=50, help_text="Enter a race/species")
@@ -56,22 +58,24 @@ class Race(models.Model):
         super().save(*args, **kwargs)
     def __str__(self):
         return self.name
+    class Meta:
+        ordering = ["name"]
 
-#TODO change CharClass to something better for display
+
 class PlayableClass(models.Model):
     name = models.CharField(max_length=50, help_text="Enter a class ")
 
     def Instance_Count(self):
         character_count = sum(
-            character.characterClass.filter(id=self.id).count()
+            character.playableClass.filter(id=self.id).count()
             for character in Enemy.objects.all()
         )
         character_count += sum(
-            character.characterClass.filter(id=self.id).count()
+            character.playableClass.filter(id=self.id).count()
             for character in Ally.objects.all()
         )
         character_count += sum(
-            character.characterClass.filter(id=self.id).count()
+            character.playableClass.filter(id=self.id).count()
             for character in Creature.objects.all()
         )
         return character_count
@@ -82,6 +86,10 @@ class PlayableClass(models.Model):
 
     def __str__(self):   
         return self.name
+    
+    class Meta:
+        ordering = ["name"]
+
 
 class Subclass(models.Model):
     name = models.CharField(max_length=50, help_text="Enter a subclass ")
@@ -93,6 +101,10 @@ class Subclass(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        ordering = ["name"]
+
 
 class Character(models.Model):
     race = models.ManyToManyField(Race, help_text="Select a race from previous races or create a new one using the + button\n")
@@ -183,3 +195,6 @@ class JournalEntry(models.Model):
 
     def __str__(self):
         return f"Journal Entry for {self.date}"
+    
+    class Meta:
+        ordering = ["date"]
