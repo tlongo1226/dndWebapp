@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "dnd_codex.apps.DndCodexConfig"
+    'corsheaders',
+    'rest_framework',
+    "dnd_codex.apps.DndCodexConfig",
+    'dnd_codex',
 ]
 
 MIDDLEWARE = [
@@ -120,6 +123,12 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/dnd_codex/build', 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+CORS_ORIGIN_WHITELIST=[
+    'https://localhost:3000',
+]
+
+CORS_ORIGIN_ALLOW_ALL=True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

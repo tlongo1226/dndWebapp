@@ -24,7 +24,7 @@ router.register(r'allieslist', views.AllyView, 'allieslist')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("dnd_codex/", include("dnd_codex.urls")),
+    path("dnd_codex/", include("dnd_codex.urls")), #Uncomment for the django based webviews
     path("api/", include(router.urls)),
     
 ]

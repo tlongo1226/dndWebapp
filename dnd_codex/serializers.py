@@ -4,4 +4,4 @@ from .models import Ally
 class AllySerializer(serializers.ModelSerializer):
     class Meta:
         model = Ally
-        fields = '__all__'
+        fields = ('id', 'name',)
