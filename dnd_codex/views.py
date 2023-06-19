@@ -7,6 +7,11 @@ from .forms import enemyForm
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework import viewsets
+from .serializers import AllySerializer
+from rest_framework.parsers import FileUploadParser, MultiPartParser, FormParser
 
 # Create your views here.
 def Enemies(request):
@@ -90,3 +95,16 @@ def journal_entries(request):
         return JsonResponse({'message': 'Journal entry created.'})
     else:
         return JsonResponse({'error': 'Method not allowed.'}, status=405)
+    
+
+class AllyView(viewsets.ModelViewSet):
+    serializer_class = AllySerializer
+    queryset = Ally.objects.all()
+    parser_classes = (MultiPartParser, FormParser,)
+
+
+   
+    def get(self, request, *args, **kwargs):
+        allies = Ally.objects.all()
+        serializer = AllySerializer(allies, many = True)
+        return Response(serializer.data)

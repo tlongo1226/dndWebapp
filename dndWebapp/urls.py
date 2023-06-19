@@ -16,9 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from rest_framework import routers
+from dnd_codex import views
+
+router = routers.DefaultRouter()
+router.register(r'allieslist', views.AllyView, 'allieslist')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("dnd_codex/", include("dnd_codex.urls")),
+    path("api/", include(router.urls)),
     
 ]
