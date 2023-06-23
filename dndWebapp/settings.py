@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     "dnd_codex.apps.DndCodexConfig",
-    'dnd_codex',
+    
 ]
 
 MIDDLEWARE = [

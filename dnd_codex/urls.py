@@ -7,5 +7,5 @@ urlpatterns = [
     path("creatures/", views.Creatures, name="Creatures"),
     path("index/", views.index, name="index"),
     path("enemy_detail/<int:enemyID>/", views.enemyDetail, name="enemy_detail"),
-    path('api/journal-entries/', views.journal_entries, name='journal-entries'),
+    
 ]
