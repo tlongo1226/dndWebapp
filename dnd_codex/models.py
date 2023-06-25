@@ -112,7 +112,7 @@ class Character(models.Model):
     playableClass = models.ManyToManyField(PlayableClass, help_text="Enter a class for this character or leave blank if it is not known", blank="True", )
     organization = models.CharField(max_length=100, blank=True)
     description = models.TextField()
-    damageType = models.ManyToManyField(DamageType, help_text="Select a damage type from previous types or create a new one using the + button\n", )
+    damageType = models.ManyToManyField(DamageType, help_text="Select a damage type from previous types or create a new one using the + button\n", null=True, blank=True)
 
     def Classes(self):        
         displayClasses = [playableClass.name for playableClass in self.playableClass.all()[:3]]
@@ -161,7 +161,7 @@ class Enemy(Character):
         verbose_name_plural='Enemies'
 
 class Ally(Character):
-    date_modified = models.DateTimeField(datetime.now())
+    date_modified = models.DateTimeField(datetime.now(), default=datetime.now)
     # TODO add affiliate organiation
 
     def __str__(self):

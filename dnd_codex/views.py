@@ -1,9 +1,9 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Creature, Ally, Enemy, JournalEntry
 from django.http import HttpResponse
 from django.template import loader
-from .forms import enemyForm
+from .forms import enemyForm, AllyForm
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -11,13 +11,11 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import viewsets
 from .serializers import AllySerializer
-from rest_framework.parsers import FileUploadParser, MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser
 
 # Create your views here.
 def Enemies(request):
     enemies = list(Enemy.objects.order_by("-date_modified"))
-
-    
     template = loader.get_template("codex/enemies.html")
     form = enemyForm()
     if request.method == "POST":
@@ -26,7 +24,6 @@ def Enemies(request):
             return HttpResponseRedirect("/thanks/")
     else:
         form = enemyForm()
-
         context = {
         "enemies" : enemies,
         "form" : form,
@@ -35,22 +32,25 @@ def Enemies(request):
 
 def Allies(request):
     allies = list(Ally.objects.order_by("-date_modified"))
+    form = AllyForm(request.POST or None)
 
+    if request.method =='POST':
+        if form.is_valid():
+            form.save()
+            return redirect('allies')
     context = {
-        "allies" : allies
+        "allies" : allies,
+        "form" : form
     }
     template = loader.get_template("codex/allies.html")
-
     return HttpResponse(template.render(context, request))
 
 def Creatures(request):
     creatures = list(Creature.objects.order_by("-date_modified"))
-
     context = {
         "creatures" : creatures
     }
     template = loader.get_template("codex/creatures.html")
-
     return HttpResponse(template.render(context, request))
 
 def index(request):
@@ -60,21 +60,19 @@ def index(request):
     enemyResponse = "Most Recent Enemy: "+ mostRecentEnemy[0].name
     print(allyResponse + " " + enemyResponse)
     template = loader.get_template("codex/index.html")
-
     context = {
         "allyResponse" : allyResponse,
         "enemyResponse" : enemyResponse,
     } 
-
-
     return HttpResponse(template.render(context, request))
-
 
 def enemyDetail(request, enemyID):
     enemy = get_object_or_404(Enemy, id= enemyID)
-
     return render(request, "codex/enemy_detail.html", {"enemy":enemy})
 
+def AllyDetail(request, allyID):
+    ally = get_object_or_404(Ally, id= allyID)
+    return render(request, "codex/ally_detail.html", {"ally":ally})
 
 @csrf_exempt
 def journal_entries(request):
@@ -96,14 +94,11 @@ def journal_entries(request):
     else:
         return JsonResponse({'error': 'Method not allowed.'}, status=405)
     
-
 class AllyView(viewsets.ModelViewSet):
     serializer_class = AllySerializer
     queryset = Ally.objects.all()
     parser_classes = (MultiPartParser, FormParser,)
-
-
-   
+    
     def get(self, request, *args, **kwargs):
         allies = Ally.objects.all()
         serializer = AllySerializer(allies, many = True)

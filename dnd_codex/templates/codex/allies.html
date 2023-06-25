@@ -2,6 +2,15 @@
 
 <ul>
     {% for ally in allies %}
-        <li><a href = "/codex/ally_detail/{{ ally.id }}/">{{ ally.name }}</a></li>
+        <li><a href = "{% url 'ally_detail' ally.id %}">{{ ally.name }}</a></li>
     {% endfor %}
 </ul>
+
+<h2> Create a New Ally:</h2>
+<form method="post" action="{% url 'allies' %}">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+
+    <button type="submit">Create Ally</button>
+  </form>
