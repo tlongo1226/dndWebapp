@@ -2,6 +2,15 @@
 
 <ul>
     {% for creature in creatures %}
-        <li><a href = "/codex/creature_detail/{{ creature.id }}/">{{ creature.name }}</a></li>
+        <li><a href = "{% url 'creature_detail' creature.id %}">{{ creature.name }}</a></li>
     {% endfor %}
 </ul>
+
+<h2> Add a New Creature:</h2>
+<form method="post" action="{% url 'Creatures' %}">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+
+    <button type="submit">Add Creature</button>
+  </form>

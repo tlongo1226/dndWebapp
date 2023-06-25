@@ -8,5 +8,6 @@ urlpatterns = [
     path("index/", views.index, name="index"),
     path("enemy_detail/<int:enemyID>/", views.enemyDetail, name="enemy_detail"),
     path("ally_detail/<int:allyID>/", views.AllyDetail, name="ally_detail"),
+    path("creature_detail/<int:creatureID>/", views.CreatureDetail, name="creature_detail"),
 
 ]

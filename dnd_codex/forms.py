@@ -1,5 +1,5 @@
 from django import forms
-from .models import Ally 
+from .models import Ally, Enemy, Creature
 RACES =[
         ("DB","Dragonborn"),
         ("DW","Dwarf"),
@@ -22,4 +22,9 @@ class enemyForm(forms.Form):
 class AllyForm(forms.ModelForm):
     class Meta:
         model = Ally
+        fields = ['name', 'organization', 'description']
+
+class CreatureForm(forms.ModelForm):
+    class Meta:
+        model = Creature
         fields = ['name', 'organization', 'description']

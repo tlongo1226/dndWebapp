@@ -114,7 +114,7 @@ class Character(models.Model):
     description = models.TextField()
     damageType = models.ManyToManyField(DamageType, help_text="Select a damage type from previous types or create a new one using the + button\n", null=True, blank=True)
 
-    def Classes(self):        
+    def Classes(self):
         displayClasses = [playableClass.name for playableClass in self.playableClass.all()[:3]]
         if(len(displayClasses)>3):
 

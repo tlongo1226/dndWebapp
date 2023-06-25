@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Creature, Ally, Enemy, JournalEntry
 from django.http import HttpResponse
 from django.template import loader
-from .forms import enemyForm, AllyForm
+from .forms import enemyForm, AllyForm, CreatureForm
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -47,8 +47,14 @@ def Allies(request):
 
 def Creatures(request):
     creatures = list(Creature.objects.order_by("-date_modified"))
+    form = CreatureForm(request.POST or None)
+    if request.method =='POST':
+        if form.is_valid():
+            form.save()
+            return redirect('creatures')
     context = {
-        "creatures" : creatures
+        "creatures" : creatures,
+        "form" : form
     }
     template = loader.get_template("codex/creatures.html")
     return HttpResponse(template.render(context, request))
@@ -73,6 +79,10 @@ def enemyDetail(request, enemyID):
 def AllyDetail(request, allyID):
     ally = get_object_or_404(Ally, id= allyID)
     return render(request, "codex/ally_detail.html", {"ally":ally})
+
+def CreatureDetail(request, creatureID):
+    creature = get_object_or_404(Creature, id = creatureID)
+    return render(request, "codex/creature_detail.html", {"creature": creature})
 
 @csrf_exempt
 def journal_entries(request):
