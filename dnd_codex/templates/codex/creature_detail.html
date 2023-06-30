@@ -1,3 +1,41 @@
-<h1> {{creature.name}} </h1>
+{% load static %}
+<head>
+<link rel="stylesheet" href="{% static 'codex/style.css' %}">
+</head>
+<h1 class="textColor"> {{creature.name}} </h1>
 
-<p>Race: {{ creature.race }}</p>
+<h4 class="textColor">Race:</h4>
+
+<ul>
+    {% for race in creature.race.all %}
+        <li class="textColor">{{ race.name }}</li>
+    {% endfor %}
+</ul>
+
+<h4 class="textColor">Organizations/Affiliations:</h4>
+
+<ul>
+    {% for organization in creature.organization.all %}
+        <li class="textColor">{{ organization.name }}</li>
+    {% endfor %}
+</ul>
+
+<h4 class="textColor">Class:</h4>
+
+<ul>
+    {% for class in creature.class.all %}
+        <li class="textColor">{{ class.name }}</li>
+    {% endfor %}
+</ul>
+
+<h2 class="textColor">Combat Stats:</h2>
+
+<h4 class="textColor">HP: TODO</h4>
+<h4 class="textColor">AC: TODO</h4>
+
+<h4 class="textColor">Damage Type(s):</h4>
+<ul>
+    {% for damageType in creature.damageType.all %}
+        <li class="textColor">{{ damageType.name }}</li>
+    {% endfor %}
+</ul>

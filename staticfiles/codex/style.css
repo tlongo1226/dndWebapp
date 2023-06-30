@@ -1,0 +1,29 @@
+li a {
+    color: rgb(79, 100, 218);
+}
+
+body {
+    background-color: rgb(47, 107, 110);
+}
+
+.rounded {
+    border-radius: 10px;
+}
+
+.buttonColor {
+    background-color: rgb(134, 231, 237);
+}
+
+.form-container input[type="text"],
+.form-container textarea,
+.form-container select {
+    border-radius: 8px;
+    border: whitesmoke;
+    border-width: 2px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #63d2ff;
+    border-radius: 8px;
+}

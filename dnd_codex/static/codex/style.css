@@ -1,0 +1,68 @@
+/* Colors
+    #F7F9F9
+    #BED8D4
+    #2F6B6E
+    #78D5D7
+    #63D2FF
+*/
+
+body {
+    background-color: rgb(47, 107, 110);
+}
+
+.rounded {
+    border-radius: 10px;
+}
+
+.buttonColor {
+    background-color: #63d2ff;
+}
+
+.form-container input[type="text"],
+.form-container textarea,
+.form-container select {
+    border-radius: 8px;
+    border: #BED8D4;
+    border-width: 3px;
+    background-color: #78D5D7;
+    color: #647673;
+    padding-right: 6px;
+    padding-left: 6px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-container {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: max-content auto;
+    align-items: start;
+    border-radius: 10px;
+    background: #225e55;
+    padding: 10px
+}
+
+.form-container label {
+    color: #BED8D4;
+    text-align: right;
+}
+
+/* .divBackground {
+    border-radius: 10px;
+    background: #225e55;
+    padding: 10px
+} */
+
+.textColor {
+    color: #BED8D4;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: #63d2ff;
+    border-radius: 8px;
+    color: #647673;
+    
+}

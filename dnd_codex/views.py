@@ -16,18 +16,16 @@ from rest_framework.parsers import MultiPartParser, FormParser
 # Create your views here.
 def Enemies(request):
     enemies = list(Enemy.objects.order_by("-date_modified"))
-    template = loader.get_template("codex/enemies.html")
-    form = enemyForm()
-    if request.method == "POST":
-        form = enemyForm(request.POST)
+    form = enemyForm(request.POST or None)
+    if request.method =='POST':
         if form.is_valid():
-            return HttpResponseRedirect("/thanks/")
-    else:
-        form = enemyForm()
-        context = {
-        "enemies" : enemies,
-        "form" : form,
-        }
+            form.save()
+            return redirect('creatures')
+    context = {
+        "creatures" : enemies,
+        "form" : form
+    }
+    template = loader.get_template("codex/creatures.html")
     return HttpResponse(template.render(context, request))
 
 def Allies(request):

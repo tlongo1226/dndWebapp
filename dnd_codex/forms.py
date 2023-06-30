@@ -14,9 +14,10 @@ RACES =[
         ("CL", "Colossus"),
     ]
 
-class enemyForm(forms.Form):
-    enemy_name = forms.CharField(label="Name", max_length=100)
-    enemy_race = forms.CharField(label="Race", max_length=50, )
+class enemyForm(forms.ModelForm):
+    class Meta:
+        model = Enemy
+        fields = ['name', 'organization', 'description']
 
 
 class AllyForm(forms.ModelForm):

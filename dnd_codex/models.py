@@ -113,6 +113,7 @@ class Character(models.Model):
     organization = models.CharField(max_length=100, blank=True)
     description = models.TextField()
     damageType = models.ManyToManyField(DamageType, help_text="Select a damage type from previous types or create a new one using the + button\n", null=True, blank=True)
+    
 
     def Classes(self):
         displayClasses = [playableClass.name for playableClass in self.playableClass.all()[:3]]

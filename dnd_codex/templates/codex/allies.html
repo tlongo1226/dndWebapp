@@ -1,4 +1,8 @@
-<h1> Allies: {{ allies|length }}</h1>
+{% load static %}
+<head>
+<link rel="stylesheet" href="{% static 'codex/style.css' %}">
+</head>
+<h1 class="textColor"> Allies: {{ allies|length }}</h1>
 
 <ul>
     {% for ally in allies %}
@@ -6,11 +10,13 @@
     {% endfor %}
 </ul>
 
-<h2> Create a New Ally:</h2>
-<form method="post" action="{% url 'allies' %}">
-    {% csrf_token %}
-    
-    {{ form.as_p }}
+<h2 class="textColor"> Create a New Ally:</h2>
+<div class="form-container textBackground divBackground">
+    <form method="post" action="{% url 'allies' %}">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
 
-    <button type="submit">Create Ally</button>
-  </form>
+        <button class="buttonColor rounded button" type ="submit">Create Ally</button>
+    </form>
+</div>

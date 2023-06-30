@@ -1,13 +1,18 @@
- <h1>Most Recent Entries:</h1>
+{% load static %}
+<head>
+<link rel="stylesheet" href="{% static 'codex/style.css' %}">
+</head>
+
+<h1 class="textColor">Most Recent Entries:</h1>
 {% if allyResponse and enemyResponse %}
-   <p> {{allyResponse}}  </p>
-   <p> {{enemyResponse}}  </p>  
+   <p class="textColor"> {{allyResponse}}  </p>
+   <p class="textColor"> {{enemyResponse}}  </p>  
 {% elif allyResponse %}
     { allyResponse }
 {% elif enemyResponse %}
     { enemyResponse } 
 {% else %}
-    <h3>No Recent Acquaintances</h3>
+    <h3 class="textColor">No Recent Acquaintances</h3>
 
 {% endif %}
 

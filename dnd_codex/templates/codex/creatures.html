@@ -1,4 +1,8 @@
-<h1> Creatures: {{ creatures|length }}</h1>
+{% load static %}
+<head>
+<link rel="stylesheet" href="{% static 'codex/style.css' %}">
+</head>
+<h1 class="textColor"> Creatures: {{ creatures|length }}</h1>
 
 <ul>
     {% for creature in creatures %}
@@ -6,11 +10,12 @@
     {% endfor %}
 </ul>
 
-<h2> Add a New Creature:</h2>
-<form method="post" action="{% url 'Creatures' %}">
-    {% csrf_token %}
-    
-    {{ form.as_p }}
-
-    <button type="submit">Add Creature</button>
-  </form>
+<h2 class="textColor"> Add a New Creature:</h2>
+<div class="form-container textBackground divBackground">
+    <form  method="post" action="{% url 'Creatures' %}">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+        <button class="buttonColor rounded button" type="submit">Add Creature</button>
+    </form>
+</div>

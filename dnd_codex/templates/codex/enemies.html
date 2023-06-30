@@ -1,13 +1,22 @@
-<h1> Enemies: {{ enemies|length }}</h1>
+{% load static %}
+<head>
+<link rel="stylesheet" href="{% static 'codex/style.css' %}">
+</head>
+<h1 class="textColor"> Enemies: {{ enemies|length }}</h1>
 
 <ul>
     {% for enemy in enemies %}
         <li><a href = "{% url 'enemy_detail' enemy.id %}">{{ enemy.name }}</a></li>
     {% endfor %}
 </ul>
+<h2 class="textColor">Create a New Enemy:</h2>
 
-<form  method="post">
-{% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Create">
-</form>
+<div class="form-container textBackground divBackground">
+    <form method="post" action="{% url 'Enemies' %}">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+
+        <button class="buttonColor rounded button" type ="submit">Create Enemy</button>
+    </form>
+</div>
