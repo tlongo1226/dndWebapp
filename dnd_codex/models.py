@@ -187,7 +187,6 @@ class Event(models.Model):
     def __str__(self):
         return self.description
 
-
 class JournalEntry(models.Model):
     date = models.DateField()
     events = models.ManyToManyField(Event)
@@ -199,3 +198,4 @@ class JournalEntry(models.Model):
     
     class Meta:
         ordering = ["date"]
+        verbose_name_plural="Journal Entries"

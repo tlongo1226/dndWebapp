@@ -64,5 +64,12 @@ button {
     background-color: #63d2ff;
     border-radius: 8px;
     color: #647673;
+}
+
+.journal_entry {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #BED8D4;
+    
     
 }

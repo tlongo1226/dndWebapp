@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Creature, Ally, Enemy, JournalEntry
 from django.http import HttpResponse
 from django.template import loader
-from .forms import enemyForm, AllyForm, CreatureForm
+from .forms import enemyForm, AllyForm, CreatureForm, JournalForm
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -82,26 +82,22 @@ def CreatureDetail(request, creatureID):
     creature = get_object_or_404(Creature, id = creatureID)
     return render(request, "codex/creature_detail.html", {"creature": creature})
 
-@csrf_exempt
-def journal_entries(request):
-    if request.method == 'GET':
-        # Retrieve all journal entries
-        entries = JournalEntry.objects.all()
-        # Convert entries to JSON format
-        data = [{'id': entry.id, 'date': entry.date, 'events': entry.events} for entry in entries]
-        # Return the JSON response
-        return JsonResponse(data, safe=False)
-    elif request.method == 'POST':
-        # Create a new journal entry
-        # Retrieve data from the request body
-        data = json.loads(request.body)
-        # Perform necessary validations and create the entry
-        # ...
-        # Return a success response
-        return JsonResponse({'message': 'Journal entry created.'})
-    else:
-        return JsonResponse({'error': 'Method not allowed.'}, status=405)
-    
+def JournalEntriesView(request):
+    entries = list(JournalEntry.objects.order_by("-date"))
+    form = JournalForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('journal_entries')
+
+    context = {
+        "entries" : entries,
+        "form" : form
+    }
+    template = loader.get_template("codex/journal_entries.html")
+    return HttpResponse(template.render(context, request))
+
+
 class AllyView(viewsets.ModelViewSet):
     serializer_class = AllySerializer
     queryset = Ally.objects.all()
@@ -111,3 +107,4 @@ class AllyView(viewsets.ModelViewSet):
         allies = Ally.objects.all()
         serializer = AllySerializer(allies, many = True)
         return Response(serializer.data)
+    
