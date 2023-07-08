@@ -1,9 +1,11 @@
 from django.db import models
 from datetime import datetime
+from django.forms.widgets import TextInput
+from colorfield.fields import ColorField
 
 class EventType(models.Model):
     name = models.CharField(max_length=50)
-    color = models.CharField(max_length=20, help_text="Enter a color code for this event type")
+    color = ColorField(default='#FF0000')
 
     def __str__(self):
         return self.name

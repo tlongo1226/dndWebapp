@@ -33,4 +33,4 @@ class CreatureForm(forms.ModelForm):
 class JournalForm(forms.ModelForm):
     class Meta:
         model = JournalEntry
-        fields = ['date', 'events', 'enemies', 'allies']
+        fields = ['date', 'events',]

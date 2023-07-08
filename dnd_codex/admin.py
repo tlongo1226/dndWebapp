@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib import messages
+from colorfield.fields import ColorField
 from .models import Enemy, Ally, Creature,Race, PlayableClass, DamageType, Subclass, JournalEntry, Event, EventType
 # Register your models here.
 

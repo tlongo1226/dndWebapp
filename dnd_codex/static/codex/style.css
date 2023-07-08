@@ -67,9 +67,8 @@ button {
 }
 
 .journal_entry {
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #BED8D4;
-    
-    
+    background-color: #4d5f56;
+    border-radius: 5px;
+    padding: 10px;
+    padding-bottom: 25px;
 }

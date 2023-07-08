@@ -1,28 +1,27 @@
 {% load static %}
 <head>
-<link rel="stylesheet" href="{% static 'codex/style.css' %}">
+    <link rel="stylesheet" href="{% static 'codex/style.css' %}">
 </head>
 
 <h1 class="textColor">Journal Entries</h1>
 <ul class="textColor">
     {% for entry in entries %}
-        <li class="textColor journal_entry">
-            <h3 class="textColor">{{ entry.date }}</h3>
-            <ul class="textColor">
-                {% for event in entry.events.all %}
-                    <l
-                    i>{{ event.event_type }} - {{ event.description }} </li>
-                {% empty %}
-                    <li class="textColor">No Events</li>
-                {% endfor %}
-            </ul>
-        </li>
+    <div class="journal_entry">
+        <h3 class="textColor">{{ entry.date }}</h3>
+        <ul class="textColor">
+            {% for event in entry.events.all %}
+                <li>{{ event.event_type }} - {{ event.description }}</li>
+            {% empty %}
+                <li class="textColor">No Events</li>
+            {% endfor %}
+        </ul>
+    </div>
     {% empty %}
         <li>No Journal Entries</li>
     {% endfor %}
 </ul>
 
-<div class="textColor">
+<div class="form-container textBackground divBackground">
     <form method="post" action="{% url 'journal_entries' %}">
         {% csrf_token %}
         {{ form.as_p }}

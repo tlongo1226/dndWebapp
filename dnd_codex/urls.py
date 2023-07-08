@@ -9,5 +9,5 @@ urlpatterns = [
     path("ally_detail/<int:allyID>/", views.AllyDetail, name="ally_detail"),
     path("creature_detail/<int:creatureID>/", views.CreatureDetail, name="creature_detail"),
     path("", views.index, name="landingpage"),
-    path("journal_entries/", views.JournalEntriesView, name = "journalEntries"),
+    path("journal_entries/", views.JournalEntriesView, name = "journal_entries"),
 ]

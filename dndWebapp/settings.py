@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    "dnd_codex.apps.DndCodexConfig",
-    
+    'dnd_codex.apps.DndCodexConfig',
+    'colorfield'
 ]
 
 MIDDLEWARE = [
